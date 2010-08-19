@@ -36,9 +36,11 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function addEntity(entity:IEntity):void {
+		public function createEntity():IEntity{
+			var entity:IEntity = new Entity();
 			entity.manager = this;
 			_components[entity] = new Dictionary();
+			return entity;
 		}
 		
 		/**

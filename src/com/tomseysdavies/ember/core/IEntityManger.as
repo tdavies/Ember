@@ -10,12 +10,12 @@ package com.tomseysdavies.ember.core{
 	public interface IEntityManger extends IDestroyable	{
 		
 		/**
-		 * registers an entity
+		 * creates a new entity
 		 * 
-		 * @param entity
+		 * @return the new entity
 		 * 
 		 */		
-		function addEntity(entity:IEntity):void;	
+		function createEntity():IEntity;	
 		
 		/**
 		 * unregisters an entity
