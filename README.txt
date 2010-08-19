@@ -2,17 +2,16 @@ h2. Ember: A component based entity framework for Flash and Flex
 
 Ember is a fast flexible expandable game development framework. Ember is designed to address the issues with traditional game architecture and encourage reuse and flexibility.
 
-Ember enables:
+Ember supports:
 
 * Component based game architecture
 * Automated Injection in subsystems
-* Automated view component mediation
 
 
 
 h3. Code
 
-* "Robotlegs Framework":http://github.com/tdavies/Ember
+* "Ember Framework":http://github.com/tdavies/Ember
 
 
 h3. Other Resources
