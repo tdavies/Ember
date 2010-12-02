@@ -26,7 +26,7 @@ package com.tomseysdavies.ember.core{
 		function removeEntity(entityId:String):void;
 		
 		/**
-		 * unregisters all entities and resets the entity manager
+		 * unregisters all entities and resets the entity manager 
 		 * 
 		 */	
 		function removeAll():void;

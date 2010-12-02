@@ -108,7 +108,7 @@ package com.tomseysdavies.ember.base {
 			_components = null;
 			_families = null;
 			_componentFamilyMap = null;
-			_currentKey = null;
+			_currentKey = 0;
 		}
 		
 		//---------------------------------------------------------------------
