@@ -12,50 +12,54 @@ package com.tomseysdavies.ember.base{
 	
 	
 	/**
-	 * this is just a unique key used to retrieve components. It also has some helper function for convenience.
+	 * this is just class that holds helper functions for convenience.
 	 * @author Tom Davies
 	 */
 	public class Entity implements IEntity{
 
 		private var _entityManger:IEntityManger;
+		private var _id:String;
 				
-		public function Entity(){
+		public function Entity(entityManger:IEntityManger,id:String){
+			_entityManger = entityManger;
+			_id = id;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function addComponent(component:Object):void {
-			return _entityManger.addComponent(this,component);
+			return _entityManger.addComponent(_id,component);
 		}
 
 		/**
 		 * @inheritDoc
 		 */
 		public function getComponent(Component:Class):* {
-			return _entityManger.getComponent(this,Component);						
+			return _entityManger.getComponent(_id,Component);						
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function removeComponent(Component:Class):void {
-			_entityManger.removeComponent(this,Component);
+			_entityManger.removeComponent(_id,Component);
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function destroy():void{
-			_entityManger.removeEntity(this);
+			_entityManger.removeEntity(_id);
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
-		public function set manager(value:IEntityManger):void{
-			_entityManger = value;
+		public function get id():String{
+			return _id;
 		}
+
 
 	}
 }

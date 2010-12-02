@@ -10,12 +10,12 @@ package com.tomseysdavies.ember.core{
 	public interface IEntityManger extends IDestroyable	{
 		
 		/**
-		 * creates a new entity
+		 * creates a new entity with the id provided. If no id is provided a unique id will be auto generated
 		 * 
 		 * @return the new entity
 		 * 
 		 */		
-		function createEntity():IEntity;	
+		function createEntity(Id:String = null):IEntity;	
 		
 		/**
 		 * unregisters an entity
@@ -23,7 +23,13 @@ package com.tomseysdavies.ember.core{
 		 * @param entity
 		 * 
 		 */	
-		function removeEntity(entity:IEntity):void;
+		function removeEntity(entityId:String):void;
+		
+		/**
+		 * unregisters all entities and resets the entity manager
+		 * 
+		 */	
+		function removeAll():void;
 		
 		/**
 		 * registers a component with an entity
@@ -31,7 +37,7 @@ package com.tomseysdavies.ember.core{
 		 * @param entity the component is to be registered with
 		 * @param component to be registered
 		 */	
-		function addComponent(entity:IEntity,component:Object):void;
+		function addComponent(entityId:String,component:Object):void;
 		
 		/**
 		 *retrieves a component
@@ -41,7 +47,7 @@ package com.tomseysdavies.ember.core{
 		 * @return component 
 		 * 
 		 */		
-		function getComponent(entity:IEntity,Component:Class):*;	
+		function getComponent(entityId:String,Component:Class):*;	
 		
 		/**
 		 *unregisters a component from an entity
@@ -50,7 +56,7 @@ package com.tomseysdavies.ember.core{
 		 * @param Component to be unregisters
 		 * 
 		 */	
-		function removeComponent(entity:IEntity,Component:Class):void;
+		function removeComponent(entityId:String,Component:Class):void;
 		
 		/**
 		 *returns a pointer to a list of entities that have a specified set of components

@@ -38,10 +38,11 @@ package com.tomseysdavies.ember.base{
 		/**
 		 * @inheritDoc
 		 */
-		public function addSystem(System:Class):void{
+		public function addSystem(System:Class):*{
 			var system:ISystem = _injector.instantiate(System)
 			_systems[System] = system;
 			system.onRegister();
+			return system;
 		}
 		
 		/**

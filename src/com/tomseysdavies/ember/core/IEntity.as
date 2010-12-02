@@ -32,14 +32,15 @@ package com.tomseysdavies.ember.core{
 		 * 
 		 */	
 		function removeComponent(Component:Class):void;
-
+		
+		
 		/**
-		 * provides a referance to the entity manager 
+		 * gets the entities unique id
 		 * 
-		 * @param manager instance of EntityManger
+		 * @return id unique id
 		 * 
-		 */		
-		function set manager(manager:IEntityManger):void;
+		 */	
+		function get id():String
 		
 	}
 }

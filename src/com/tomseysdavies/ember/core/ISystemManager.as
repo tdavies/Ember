@@ -16,7 +16,7 @@ package com.tomseysdavies.ember.core{
 		 * @param System 
 		 * 
 		 */	
-		function addSystem(System:Class):void;
+		function addSystem(System:Class):*;
 		
 		
 		/**
