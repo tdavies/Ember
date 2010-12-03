@@ -40,7 +40,7 @@ package com.tomseysdavies.ember.base {
 		 */
 		public function createEntity(Id:String = null):IEntity{
 			var key:String = Id; 
-			if(key == null){
+			if(key == null || key == ""){
 				_currentKey ++;
 				key = "id_" + _currentKey;
 			}			
