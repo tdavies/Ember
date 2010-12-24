@@ -121,7 +121,6 @@ package com.tomseysdavies.ember.base {
 		private function getAllComposingX(Components:Array):Vector.<IEntity>{
 			var entityList:Vector.<IEntity> = new Vector.<IEntity>;
 			for(var entityId:String in _components){
-				//var enity:IEntity = e as IEntity;
 				if(hasAllComponents(entityId,Components)){
 					entityList.push(new Entity(this,entityId));
 				}
