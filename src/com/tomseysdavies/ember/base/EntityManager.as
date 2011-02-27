@@ -68,6 +68,7 @@ package com.tomseysdavies.ember.base {
 			}
 			_currentKey = 0;
 		}
+				
 		
 		/**
 		 * @inheritDoc

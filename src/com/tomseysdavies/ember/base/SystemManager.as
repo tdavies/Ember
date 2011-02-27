@@ -39,6 +39,9 @@ package com.tomseysdavies.ember.base{
 		 * @inheritDoc
 		 */
 		public function addSystem(System:Class):*{
+			if(_systems[System] != null){
+				trace("Warning system all ready exists in system manager");
+			}
 			var system:ISystem = _injector.instantiate(System)
 			_systems[System] = system;
 			system.onRegister();
@@ -49,8 +52,12 @@ package com.tomseysdavies.ember.base{
 		 * @inheritDoc
 		 */
 		public function removeSystem(System:Class):void{
-			_systems[System].destroy();
-			delete _systems[System];
+			try{
+				_systems[System].destroy();
+				delete _systems[System];
+			}catch(e:Error){
+				trace("Warning system "+ System +" dosn't exist in system manager");
+			}
 		}
 		
 		/**
