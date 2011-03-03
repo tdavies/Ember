@@ -15,9 +15,9 @@ package com.tomseysdavies.ember.base{
 	 * this is just class that holds helper functions for convenience.
 	 * @author Tom Davies
 	 */
-	public class Entity implements IEntity{
+	internal class Entity implements IEntity{
 
-		private var _entityManger:IEntityManger;
+		private static var _entityManger:IEntityManger;
 		private var _id:String;
 				
 		public function Entity(entityManger:IEntityManger,id:String){

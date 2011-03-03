@@ -40,7 +40,7 @@ package com.tomseysdavies.ember.base{
 		 */
 		public function addSystem(System:Class):*{
 			if(_systems[System] != null){
-				trace("Warning system all ready exists in system manager");
+				trace("Warning system "+System+" already exists in system manager");
 			}
 			var system:ISystem = _injector.instantiate(System)
 			_systems[System] = system;

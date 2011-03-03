@@ -8,6 +8,7 @@
 package com.tomseysdavies.ember.base {
 	import com.tomseysdavies.ember.core.IEntity;
 	import com.tomseysdavies.ember.core.IEntityManger;
+	import com.tomseysdavies.ember.core.IFamily;
 	
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
@@ -20,13 +21,13 @@ package com.tomseysdavies.ember.base {
 	public class EntityManager implements IEntityManger {
 		
 		private var _components:Dictionary;
-		private var _families:Object;
+		private var _families:Dictionary;
 		private var _componentFamilyMap:Dictionary;
 		private var _currentKey:int;
 		
 		public function EntityManager() {
 			_components = new Dictionary();
-			_families = new Object();
+			_families = new Dictionary();
 			_componentFamilyMap = new Dictionary();
 			_currentKey = 0;
 		}
@@ -82,8 +83,16 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function getComponent(entityId:String,Component:Class):*{	
-			return _components[entityId][Component];
+		public function getComponent(entityId:String,Component:Class):*{
+			var entityComponents:Dictionary = _components[entityId];
+			if(entityComponents == null){
+				throw new Error("Entity " + entityId + " not found in Entity Manager");
+			}
+			try{
+				return entityComponents[Component];
+			}catch(e:Error){
+				throw new Error("Component " + Component + " not found on entity " + entityId);
+			}
 		}
 		
 		/**
@@ -97,8 +106,8 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function getEntityFamily(...Components):Vector.<IEntity>{
-			Components.sort();
+		public function getEntityFamily(...Components):IFamily{
+		//	Components.sort();
 			return getFamily(Components);
 		}
 			
@@ -107,6 +116,9 @@ package com.tomseysdavies.ember.base {
 		 */
 		public function destroy():void {
 			_components = null;
+			for each(var fammily:IFamily in _families){
+				fammily.destroy();
+			}			
 			_families = null;
 			_componentFamilyMap = null;
 			_currentKey = 0;
@@ -119,8 +131,8 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * gets all Entities with specifed Components
 		 */ 
-		private function getAllComposingX(Components:Array):Vector.<IEntity>{
-			var entityList:Vector.<IEntity> = new Vector.<IEntity>;
+		private function getEntitiesAllComposingOf(Components:Array):Vector.<IEntity>{
+			var entityList:Vector.<IEntity> = new Vector.<IEntity>();
 			for(var entityId:String in _components){
 				if(hasAllComponents(entityId,Components)){
 					entityList.push(new Entity(this,entityId));
@@ -148,8 +160,10 @@ package com.tomseysdavies.ember.base {
 			var families:Vector.<Array> = getFamiliesWithComponent(Component);				
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
 				if(hasAllComponents(entityId,Components)){
-					var family:Vector.<IEntity> = getFamily(Components);
-					family.push(new Entity(this,entityId));
+					var family:IFamily = getFamily(Components);
+					var newEntity:Entity =  new Entity(this,entityId)
+					family.entites.push(newEntity);
+					family.entityAdded.dispatch(newEntity);
 				}
 			}
 		}		
@@ -158,13 +172,31 @@ package com.tomseysdavies.ember.base {
 		 * updates families when a component is removed from an entity
 		 */ 
 		private function removeEntityFromFamilies(entityId:String,Component:Class):void{
-			var families:Vector.<Array> = getFamiliesWithComponent(Component);			
+			//var families:Vector.<Array> = getFamiliesWithComponent(Component);			
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
-				var family:Vector.<IEntity> = getFamily(Components);
-				for(var i:int=0; i<family.length; i++){
-					var entity:IEntity = family[i] as IEntity;
+				var family:IFamily = getFamily(Components);
+				for(var i:int=0; i<family.entites.length; i++){
+					var entity:IEntity = family.entites[i] as IEntity;
 					if(entity.id == entityId){
-						family.splice(i,1)
+						family.entites.splice(i,1)
+						family.entityRemoved.dispatch(entity);
+					}
+				}
+				if(family.size < 1){
+					removeFamily(Components);
+				}
+				trace("family.length " + family.size);
+			}
+		}
+		
+		private function removeFamily(Components:Array):void{
+			_families[Components].destroy();
+			delete _families[Components];
+			
+			for each(var familyRefList:Vector.<Array> in _componentFamilyMap){
+				for(var i:int=0; i<familyRefList.length; i++){
+					if(familyRefList[i] == Components){
+						familyRefList.splice(i,1);
 					}
 				}
 			}
@@ -187,18 +219,20 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * retrieves an existing Family with set of Components or creates a new one
 		 */
-		private function getFamily(Components:Array):Vector.<IEntity>{
-			return _families[Components] ||= newFamily(Components);
-		}		
+		private function getFamily(components:Array):IFamily{
+			return _families[components] ||= newFamily(components);
+		}
 		
 		/**
 		 * creates a new family and updates references
 		 */
-		private function newFamily(Components:Array):Vector.<IEntity>{
-			for each(var Component:Class in Components){
-				getFamiliesWithComponent(Component).push(Components);
+		private function newFamily(components:Array):IFamily{
+			for each(var Component:Class in components){
+				getFamiliesWithComponent(Component).push(components);
 			}
-			return getAllComposingX(Components);
+			var family:Family = new Family(components);
+			family.entites = getEntitiesAllComposingOf(components)
+			return family;
 		}
 
 		
