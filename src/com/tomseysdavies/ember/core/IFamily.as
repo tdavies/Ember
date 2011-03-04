@@ -46,6 +46,6 @@ package com.tomseysdavies.ember.core
 		 *get the current entity from the iterator
 		 * 
 		 */
-		function getCurrentEntity():IEntity;
+		function get currentEntity():IEntity;
 	}
 }

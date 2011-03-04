@@ -107,7 +107,6 @@ package com.tomseysdavies.ember.base {
 		 * @inheritDoc
 		 */
 		public function getEntityFamily(...Components):IFamily{
-		//	Components.sort();
 			return getFamily(Components);
 		}
 			
@@ -115,10 +114,10 @@ package com.tomseysdavies.ember.base {
 		 * @inheritDoc
 		 */
 		public function destroy():void {
-			_components = null;
-			for each(var fammily:IFamily in _families){
-				fammily.destroy();
-			}			
+			_components = null;	
+			for each(var family:IFamily in _families){
+				family.destroy();
+			}
 			_families = null;
 			_componentFamilyMap = null;
 			_currentKey = 0;
@@ -171,8 +170,7 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * updates families when a component is removed from an entity
 		 */ 
-		private function removeEntityFromFamilies(entityId:String,Component:Class):void{
-			//var families:Vector.<Array> = getFamiliesWithComponent(Component);			
+		private function removeEntityFromFamilies(entityId:String,Component:Class):void{		
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
 				var family:IFamily = getFamily(Components);
 				for(var i:int=0; i<family.entites.length; i++){
@@ -182,10 +180,6 @@ package com.tomseysdavies.ember.base {
 						family.entityRemoved.dispatch(entity);
 					}
 				}
-				if(family.size < 1){
-					removeFamily(Components);
-				}
-				trace("family.length " + family.size);
 			}
 		}
 		
@@ -197,6 +191,7 @@ package com.tomseysdavies.ember.base {
 				for(var i:int=0; i<familyRefList.length; i++){
 					if(familyRefList[i] == Components){
 						familyRefList.splice(i,1);
+						i--;
 					}
 				}
 			}

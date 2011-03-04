@@ -103,7 +103,7 @@ package com.tomseysdavies.ember.base
 		/**
 		 * @inheritDoc
 		 */
-		public function getCurrentEntity():IEntity{
+		public function get currentEntity():IEntity{
 			return _currentEntity;
 		}
 		
