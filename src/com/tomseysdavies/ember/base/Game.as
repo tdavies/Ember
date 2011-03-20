@@ -85,10 +85,10 @@ package com.tomseysdavies.ember.base{
 		/**
 		 * @inheritDoc
 		 */
-		final public function destroy():void{
-			_entityManager.destroy();
+		final public function dispose():void{
+			_entityManager.dispose();
 			_entityManager = null;
-			_systemManager.destroy();
+			_systemManager.dispose();
 			_systemManager = null;
 			_contextView = null;
 			_injector = null;

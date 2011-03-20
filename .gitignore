@@ -1,0 +1,17 @@
+#shamelessly stolen from Richard Lord -- https://github.com/richardlord/Flint/blob/master/.gitignore
+# Eclipse
+.settings/*
+.project
+
+# Flash Builder
+html-template/*
+bin-debug/*
+bin-release/*
+.actionScriptProperties
+.flexProperties
+.flexLibProperties
+
+# OS X
+Icon
+Thumbs.db
+.DS_Store

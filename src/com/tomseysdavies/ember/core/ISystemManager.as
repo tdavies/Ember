@@ -7,7 +7,7 @@
 
 package com.tomseysdavies.ember.core{
 	
-	public interface ISystemManager extends IDestroyable{
+	public interface ISystemManager extends IDisposable{
 
 		
 		/**

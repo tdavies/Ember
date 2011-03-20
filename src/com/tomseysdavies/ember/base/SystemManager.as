@@ -7,7 +7,7 @@
 
 package com.tomseysdavies.ember.base{
 	
-	import com.tomseysdavies.ember.core.IDestroyable;
+	import com.tomseysdavies.ember.core.IDisposable;
 	import com.tomseysdavies.ember.core.ISystem;
 	import com.tomseysdavies.ember.core.ISystemManager;
 	
@@ -63,9 +63,9 @@ package com.tomseysdavies.ember.base{
 		/**
 		 * @inheritDoc
 		 */
-		public function destroy():void{
-			for each(var item:IDestroyable in _systems) {
-				item.destroy();
+		public function dispose():void{
+			for each(var item:IDisposable in _systems) {
+				item.dispose();
 			}
 			_systems = new Dictionary();
 		}

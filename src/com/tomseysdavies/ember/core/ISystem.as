@@ -8,7 +8,7 @@
 package com.tomseysdavies.ember.core
 {
 
-	public interface ISystem extends IDestroyable{
+	public interface ISystem extends IDisposable{
 		
 		/**
 		 * should set up system 

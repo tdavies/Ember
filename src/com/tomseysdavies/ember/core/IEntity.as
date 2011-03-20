@@ -7,7 +7,7 @@
 
 package com.tomseysdavies.ember.core{
 	
-	public interface IEntity extends IDestroyable{
+	public interface IEntity extends IDisposable{
 		
 		/**
 		 * registers a compoment with the entity

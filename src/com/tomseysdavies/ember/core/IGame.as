@@ -9,7 +9,7 @@ package com.tomseysdavies.ember.core
 {
 	import flash.display.DisplayObjectContainer;
 
-	public interface IGame extends IDestroyable{
+	public interface IGame extends IDisposable{
 		
 		
 		/**

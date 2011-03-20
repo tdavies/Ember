@@ -49,7 +49,7 @@ package com.tomseysdavies.ember.base{
 		/**
 		 * @inheritDoc
 		 */
-		public function destroy():void{
+		public function dispose():void{
 			_entityManger.removeEntity(_id);
 		}
 		

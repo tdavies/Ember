@@ -5,7 +5,6 @@ package com.tomseysdavies.ember.base
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import org.osflash.signals.Signal;
-	import org.osmf.traits.IDisposable;
 	
 	internal class Family implements IFamily
 	{
@@ -15,14 +14,14 @@ package com.tomseysdavies.ember.base
 		private var _entities:Vector.<IEntity>;
 		private var _loopSignal:Signal;
 		private var _currentEntity:IEntity;
-		private var _compoments:Array;
+		private var _components:Array;
 		private var _canceled:Boolean
 		
-		public function Family(compoments:Array)
+		public function Family(components:Array)
 		{
-			_compoments = compoments;
+			_components = components;
 			_loopSignal = new Signal();
-			_loopSignal.valueClasses = _compoments;
+			_loopSignal.valueClasses = _components;
 		}
 		
 		/**
@@ -94,8 +93,8 @@ package com.tomseysdavies.ember.base
 		 */
 		private function extractComponents(entity:IEntity):Array{
 			var components:Array = [];
-			for each(var Compoment:Class in _compoments){
-				components.push(entity.getComponent(Compoment));
+			for each(var Component:Class in _components){
+				components.push(entity.getComponent(Component));
 			}
 			return components;
 		}
@@ -110,7 +109,7 @@ package com.tomseysdavies.ember.base
 		/**
 		 * @inheritDoc
 		 */
-		public function destroy():void{
+		public function dispose():void{
 			_entities = null;
 			ENTITY_ADDED.removeAll();
 			ENTITY_REMOVED.removeAll();

@@ -15,7 +15,7 @@ package com.tomseysdavies.ember.base {
 	import flash.utils.getQualifiedClassName;
 	
 	/**
-	 * manages the relations between compoments and entites and keeps entity families upto date.
+	 * manages the relations between components and entites and keeps entity families upto date.
 	 * @author Tom Davies
 	 */
 	public class EntityManager implements IEntityManger {
@@ -74,10 +74,10 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function addComponent(entityId:String,compoment:Object):void{
-			var Compoment:Class = getClass(compoment);
-			_components[entityId][Compoment] = compoment;
-			addEntityToFamilies(entityId,Compoment);
+		public function addComponent(entityId:String,component:Object):void{
+			var Component:Class = getClass(component);
+			_components[entityId][Component] = component;
+			addEntityToFamilies(entityId,Component);
 		}
 		
 		/**
@@ -113,10 +113,10 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function destroy():void {
+		public function dispose():void {
 			_components = null;	
 			for each(var family:IFamily in _families){
-				family.destroy();
+				family.dispose();
 			}
 			_families = null;
 			_componentFamilyMap = null;
