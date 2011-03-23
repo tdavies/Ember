@@ -5,7 +5,6 @@ package com.tomseysdavies.ember.base
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import org.osflash.signals.Signal;
-	import org.osmf.traits.IDisposable;
 	
 	internal class Family implements IFamily
 	{
@@ -110,7 +109,7 @@ package com.tomseysdavies.ember.base
 		/**
 		 * @inheritDoc
 		 */
-		public function destroy():void{
+		public function dispose():void{
 			_entities = null;
 			ENTITY_ADDED.removeAll();
 			ENTITY_REMOVED.removeAll();

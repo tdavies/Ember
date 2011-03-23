@@ -7,13 +7,13 @@
 
 package com.tomseysdavies.ember.core
 {
-	public interface IDestroyable
+	public interface IDisposable
 	{
 		
 		/**
 		 * invoked when instance is to be destroyed
 		 * 
 		 */	
-		function destroy():void;
+		function dispose():void;
 	}
 }

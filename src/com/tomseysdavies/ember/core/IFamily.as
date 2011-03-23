@@ -2,7 +2,7 @@ package com.tomseysdavies.ember.core
 {
 	import org.osflash.signals.Signal;
 
-	public interface IFamily extends IDestroyable
+	public interface IFamily extends IDisposable
 	{
 		
 		

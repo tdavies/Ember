@@ -113,10 +113,10 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function destroy():void {
+		public function dispose():void {
 			_components = null;	
 			for each(var family:IFamily in _families){
-				family.destroy();
+				family.dispose();
 			}
 			_families = null;
 			_componentFamilyMap = null;
