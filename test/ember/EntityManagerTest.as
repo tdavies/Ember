@@ -40,7 +40,14 @@ package ember
 			var id:String = "SOME_ID";
 			_entityManager.createEntity(id);
 			assertNull("Entity with duplicate ID won't be created.", _entityManager.createEntity(id));
-			
+		}
+		
+		public function testEntityIsDeleted():void
+		{
+			var id:String = "SOME_ID";
+			_entityManager.createEntity(id);
+			_entityManager.removeEntity(id);
+			assertFalse("Entity was removed.", _entityManager.verifyExistenceOf(id));
 		}
 		
 		//_________________PRIVATE

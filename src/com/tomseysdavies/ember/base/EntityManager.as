@@ -52,6 +52,11 @@ package com.tomseysdavies.ember.base {
 			return entity;
 		}
 		
+		public function verifyExistenceOf(id:String):Boolean
+		{
+			return _components[id] != null;
+		}
+		
 		/**
 		 * @inheritDoc
 		 */
