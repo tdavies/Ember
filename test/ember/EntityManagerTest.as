@@ -23,6 +23,18 @@ package ember
 			_entityManager = null;
 		}
 		
+		public function testVerifyExistenceOf():void
+		{
+			_entityManager.createEntity(SOME_ID);
+			assertTrue("Entity was proven to exist.", _entityManager.verifyExistenceOf(SOME_ID));
+		}
+		
+		public function testVerifyExistenceOfFailure():void
+		{
+			_entityManager.createEntity(SOME_ID);
+			assertFalse("Entity was proven to exist.", _entityManager.verifyExistenceOf("FAIL"));
+		}
+		
 		public function testEntityWithoutIDCreated():void
 		{
 			var entity:IEntity = _entityManager.createEntity();
@@ -52,16 +64,34 @@ package ember
 		{
 			var result:Boolean;
 			_entityManager.createEntity(SOME_ID);
-			result = _entityManager.addComponent(SOME_ID, new MockComponent());
+			result = _entityManager.addComponent(SOME_ID, new ComponentA());
 			assertTrue("Component was added.", result);
 		}
 		
 		public function testComponentNotAddedIfNoEntity():void
 		{
-			var result:Boolean = _entityManager.addComponent("FAIL", new MockComponent());
+			var result:Boolean = _entityManager.addComponent("FAIL", new ComponentA());
 			assertFalse("Component was not added.", result);
 		}
 		
+		public function testComponentFound():void
+		{
+			var result:ComponentA;
+			_entityManager.createEntity(SOME_ID);
+			_entityManager.addComponent(SOME_ID, new ComponentA());
+			result = _entityManager.getComponent(SOME_ID, ComponentA);
+			assertNotNull("Component was found.", result);
+		}
+		
+		public function testComponentRemoved():void
+		{
+			var result:ComponentA;
+			_entityManager.createEntity(SOME_ID);
+			_entityManager.addComponent(SOME_ID, new ComponentA());
+			_entityManager.removeComponent(SOME_ID, ComponentA);
+			result = _entityManager.getComponent(SOME_ID, ComponentA);
+			assertNull("Component was removed.", result);
+		}
 		
 		//_________________PRIVATE
 		private static const SOME_ID:String = "SOME_ID";
