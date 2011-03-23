@@ -31,12 +31,15 @@ package ember
 		
 		public function testEntityWithIDCreated():void
 		{
-			var entity:IEntity = _entityManager.createEntity('SOME_ID');
+			var entity:IEntity = _entityManager.createEntity("SOME_ID");
 			assertNotNull("Entity was created WITH an id specified.", entity);
 		}
 		
 		public function testDuplicateIDDoesNotCreateEntity():void
 		{
+			var id:String = "SOME_ID";
+			_entityManager.createEntity(id);
+			assertNull("Entity with duplicate ID won't be created.", _entityManager.createEntity(id));
 			
 		}
 		

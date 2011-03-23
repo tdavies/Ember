@@ -44,7 +44,9 @@ package com.tomseysdavies.ember.base {
 			if(key == null || key == ""){
 				_currentKey ++;
 				key = "id_" + _currentKey;
-			}			
+			}else if(_components[Id]){
+				return null;
+			}
 			var entity:IEntity = new Entity(this,key);
 			_components[entity.id] = new Dictionary();
 			return entity;
