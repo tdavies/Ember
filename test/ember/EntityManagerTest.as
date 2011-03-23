@@ -2,6 +2,9 @@ package ember
 {
 	import asunit.framework.TestCase;
 	
+	import com.tomseysdavies.ember.base.EntityManager;
+	import com.tomseysdavies.ember.core.IEntity;
+	
 	public class EntityManagerTest extends TestCase
 	{
 		public function EntityManagerTest()
@@ -11,12 +14,28 @@ package ember
 		
 		override protected function setUp():void
 		{
-			
+			_entityManager = new EntityManager();
 		}
 		
-		public function testFailure():void
+		override protected function tearDown():void
 		{
-			assertTrue(false);
+			_entityManager.destroy();
+			_entityManager = null;
 		}
+		
+		public function testEntityWithoutIDCreated():void
+		{
+			var entity:IEntity = _entityManager.createEntity();
+			assertNotNull("Entity was created WITHOUT an id specified.", entity);
+		}
+		
+		public function testEntityWithIDCreated():void
+		{
+			var entity:IEntity = _entityManager.createEntity('SOME_ID');
+			assertNotNull("Entity was created WITH an id specified.", entity);
+		}
+		
+		//_________________PRIVATE
+		private var _entityManager:EntityManager;
 	}
 }
