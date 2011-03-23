@@ -37,20 +37,34 @@ package ember
 		
 		public function testDuplicateIDDoesNotCreateEntity():void
 		{
-			var id:String = "SOME_ID";
-			_entityManager.createEntity(id);
-			assertNull("Entity with duplicate ID won't be created.", _entityManager.createEntity(id));
+			_entityManager.createEntity(SOME_ID);
+			assertNull("Entity with duplicate ID won't be created.", _entityManager.createEntity(SOME_ID));
 		}
 		
 		public function testEntityIsDeleted():void
 		{
-			var id:String = "SOME_ID";
-			_entityManager.createEntity(id);
-			_entityManager.removeEntity(id);
-			assertFalse("Entity was removed.", _entityManager.verifyExistenceOf(id));
+			_entityManager.createEntity(SOME_ID);
+			_entityManager.removeEntity(SOME_ID);
+			assertFalse("Entity was removed.", _entityManager.verifyExistenceOf(SOME_ID));
 		}
 		
+		public function testComponentAdded():void
+		{
+			var result:Boolean;
+			_entityManager.createEntity(SOME_ID);
+			result = _entityManager.addComponent(SOME_ID, new MockComponent());
+			assertTrue("Component was added.", result);
+		}
+		
+		public function testComponentNotAddedIfNoEntity():void
+		{
+			var result:Boolean = _entityManager.addComponent("FAIL", new MockComponent());
+			assertFalse("Component was not added.", result);
+		}
+		
+		
 		//_________________PRIVATE
+		private static const SOME_ID:String = "SOME_ID";
 		private var _entityManager:EntityManager;
 	}
 }

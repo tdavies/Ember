@@ -45,8 +45,10 @@ package com.tomseysdavies.ember.core{
 		 * 
 		 * @param entity the component is to be registered with
 		 * @param component to be registered
+		 * 
+		 * @return Boolean, true if the component was added.
 		 */	
-		function addComponent(entityId:String,component:Object):void;
+		function addComponent(entityId:String,component:Object):Boolean;
 		
 		/**
 		 *retrieves a component
