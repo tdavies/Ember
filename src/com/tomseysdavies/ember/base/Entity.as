@@ -8,7 +8,7 @@
 package com.tomseysdavies.ember.base{
 		
 	import com.tomseysdavies.ember.core.IEntity;
-	import com.tomseysdavies.ember.core.IEntityManger;
+	import com.tomseysdavies.ember.core.IEntityManager;
 	
 	
 	/**
@@ -17,10 +17,10 @@ package com.tomseysdavies.ember.base{
 	 */
 	internal class Entity implements IEntity{
 
-		private static var _entityManger:IEntityManger;
+		private static var _entityManger:IEntityManager;
 		private var _id:String;
 				
-		public function Entity(entityManger:IEntityManger,id:String){
+		public function Entity(entityManger:IEntityManager,id:String){
 			_entityManger = entityManger;
 			_id = id;
 		}

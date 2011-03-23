@@ -7,7 +7,7 @@
 
 package com.tomseysdavies.ember.core{
 	
-	public interface IEntityManger extends IDisposable	{
+	public interface IEntityManager extends IDisposable	{
 		
 		/**
 		 * creates a new entity with the id provided. If no id is provided a unique id will be auto generated

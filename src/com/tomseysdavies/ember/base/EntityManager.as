@@ -7,7 +7,7 @@
 
 package com.tomseysdavies.ember.base {
 	import com.tomseysdavies.ember.core.IEntity;
-	import com.tomseysdavies.ember.core.IEntityManger;
+	import com.tomseysdavies.ember.core.IEntityManager;
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import flash.utils.Dictionary;
@@ -18,7 +18,7 @@ package com.tomseysdavies.ember.base {
 	 * manages the relations between components and entites and keeps entity families upto date.
 	 * @author Tom Davies
 	 */
-	public class EntityManager implements IEntityManger {
+	public class EntityManager implements IEntityManager {
 		
 		private var _components:Dictionary;
 		private var _families:Dictionary;

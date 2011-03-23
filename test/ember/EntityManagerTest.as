@@ -19,7 +19,7 @@ package ember
 		
 		override protected function tearDown():void
 		{
-			_entityManager.destroy();
+			_entityManager.dispose();
 			_entityManager = null;
 		}
 		
@@ -33,6 +33,11 @@ package ember
 		{
 			var entity:IEntity = _entityManager.createEntity('SOME_ID');
 			assertNotNull("Entity was created WITH an id specified.", entity);
+		}
+		
+		public function testDuplicateIDDoesNotCreateEntity():void
+		{
+			
 		}
 		
 		//_________________PRIVATE
