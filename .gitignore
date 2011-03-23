@@ -15,3 +15,6 @@ bin-release/*
 Icon
 Thumbs.db
 .DS_Store
+
+#uncompiled libraries
+libs-src/*
