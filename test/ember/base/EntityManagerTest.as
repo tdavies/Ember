@@ -1,4 +1,4 @@
-package ember
+package ember.base
 {
 	import asunit.framework.TestCase;
 	
@@ -32,7 +32,7 @@ package ember
 		public function testVerifyExistenceOfFailure():void
 		{
 			_entityManager.createEntity(SOME_ID);
-			assertFalse("Entity was proven to exist.", _entityManager.verifyExistenceOf("FAIL"));
+			assertFalse("Entity was not proven to exist.", _entityManager.verifyExistenceOf("FAIL"));
 		}
 		
 		public function testEntityWithoutIDCreated():void
@@ -91,6 +91,18 @@ package ember
 			_entityManager.removeComponent(SOME_ID, ComponentA);
 			result = _entityManager.getComponent(SOME_ID, ComponentA);
 			assertNull("Component was removed.", result);
+		}
+		
+		public function testFamilyCreatedWithOneComponent():void
+		{
+			var result:* = _entityManager.getEntityFamily(ComponentA);
+			assertNotNull("Family was retrieved.", result);
+		}
+		
+		public function testFamilyCreatedWithManyComponents():void
+		{
+			var result:* = _entityManager.getEntityFamily(ComponentA, ComponentB);
+			assertNotNull("Family was retrieved.", result);
 		}
 		
 		//_________________PRIVATE

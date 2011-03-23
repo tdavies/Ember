@@ -1,4 +1,4 @@
-package ember
+package ember.base
 {
 	public class ComponentB
 	{
