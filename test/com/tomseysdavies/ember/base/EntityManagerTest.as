@@ -1,9 +1,9 @@
-package ember.base
+package com.tomseysdavies.ember.base
 {
 	import asunit.framework.TestCase;
 	
-	import com.tomseysdavies.ember.base.EntityManager;
 	import com.tomseysdavies.ember.core.IEntity;
+	import com.tomseysdavies.ember.core.IFamily;
 	
 	public class EntityManagerTest extends TestCase
 	{
@@ -95,14 +95,14 @@ package ember.base
 		
 		public function testFamilyCreatedWithOneComponent():void
 		{
-			var result:* = _entityManager.getEntityFamily(ComponentA);
-			assertNotNull("Family was retrieved.", result);
+			var result:IFamily = _entityManager.getEntityFamily(ComponentA);
+			assertTrue("Family was retrieved.", result is IFamily);
 		}
 		
 		public function testFamilyCreatedWithManyComponents():void
 		{
-			var result:* = _entityManager.getEntityFamily(ComponentA, ComponentB);
-			assertNotNull("Family was retrieved.", result);
+			var result:IFamily = _entityManager.getEntityFamily(ComponentA, ComponentB);
+			assertTrue("Family was retrieved.", result is IFamily);
 		}
 		
 		//_________________PRIVATE

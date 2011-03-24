@@ -2,7 +2,7 @@ package
 {
 	import asunit.framework.TestSuite;
 	
-	import ember.base.EntityManagerTest;
+	import com.tomseysdavies.ember.base.EntityManagerTest;
 	
 	public class AllTests extends TestSuite
 	{
