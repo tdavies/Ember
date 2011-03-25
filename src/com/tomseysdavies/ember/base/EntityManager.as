@@ -55,7 +55,7 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function verifyExistenceOf(id:String):Boolean
+		public function hasEntity(id:String):Boolean
 		{
 			return _components[id] != null;
 		}
@@ -86,7 +86,7 @@ package com.tomseysdavies.ember.base {
 		 */
 		public function addComponent(entityId:String,component:Object):Boolean{
 			var Component:Class = getClass(component);
-			if(!verifyExistenceOf(entityId)){
+			if(!hasEntity(entityId)){
 				return false;
 			}
 			_components[entityId][Component] = component;

@@ -26,13 +26,13 @@ package com.tomseysdavies.ember.base
 		public function testVerifyExistenceOf():void
 		{
 			_entityManager.createEntity(SOME_ID);
-			assertTrue("Entity was proven to exist.", _entityManager.verifyExistenceOf(SOME_ID));
+			assertTrue("Entity was proven to exist.", _entityManager.hasEntity(SOME_ID));
 		}
 		
 		public function testVerifyExistenceOfFailure():void
 		{
 			_entityManager.createEntity(SOME_ID);
-			assertFalse("Entity was not proven to exist.", _entityManager.verifyExistenceOf("FAIL"));
+			assertFalse("Entity was not proven to exist.", _entityManager.hasEntity("FAIL"));
 		}
 		
 		public function testEntityWithoutIDCreated():void
@@ -57,7 +57,7 @@ package com.tomseysdavies.ember.base
 		{
 			_entityManager.createEntity(SOME_ID);
 			_entityManager.removeEntity(SOME_ID);
-			assertFalse("Entity was removed.", _entityManager.verifyExistenceOf(SOME_ID));
+			assertFalse("Entity was removed.", _entityManager.hasEntity(SOME_ID));
 		}
 		
 		public function testComponentAdded():void
@@ -105,6 +105,15 @@ package com.tomseysdavies.ember.base
 			assertTrue("Family was retrieved.", result is IFamily);
 		}
 		
+		/*public function testFamilyContainsComponents():void
+		{
+			var family:IFamily;
+			var entity:IEntity = _entityManager.createEntity();
+			_entityManager.addComponent(entity.id, new ComponentA());
+			family = _entityManager.getEntityFamily(ComponentA);
+			assertTrue("Contains one component.", family.
+		}
+		*/
 		//_________________PRIVATE
 		private static const SOME_ID:String = "SOME_ID";
 		private var _entityManager:EntityManager;
