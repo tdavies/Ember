@@ -112,8 +112,8 @@ package com.tomseysdavies.ember.base
 			_entityManager.addComponent(entity.id, new ComponentA());
 			family = _entityManager.getEntityFamily(ComponentA);
 			assertTrue("Contains one component.", family.
-		}
-		*/
+		}*/
+		
 		//_________________PRIVATE
 		private static const SOME_ID:String = "SOME_ID";
 		private var _entityManager:EntityManager;

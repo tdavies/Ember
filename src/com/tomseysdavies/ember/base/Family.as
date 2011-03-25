@@ -27,14 +27,14 @@ package com.tomseysdavies.ember.base
 		/**
 		 * @inheritDoc
 		 */
-		public function get entites():Vector.<IEntity>{
+		public function get entities():Vector.<IEntity>{
 			return _entities;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
-		public function set entites(value:Vector.<IEntity>):void{
+		public function set entities(value:Vector.<IEntity>):void{
 			_entities = value;
 		}
 		
