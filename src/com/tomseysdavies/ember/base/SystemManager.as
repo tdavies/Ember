@@ -59,7 +59,7 @@ package com.tomseysdavies.ember.base{
 				trace("Warning system "+ System +" dosn't exist in system manager");
 			}
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
