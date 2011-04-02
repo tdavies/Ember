@@ -1,7 +1,7 @@
 package com.tomseysdavies.ember.base
 {
 	import com.tomseysdavies.ember.core.IEntity;
-	import com.tomseysdavies.ember.core.IEntityManger;
+	import com.tomseysdavies.ember.core.IEntityManager;
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import org.osflash.signals.Signal;

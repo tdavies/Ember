@@ -7,7 +7,7 @@
 
 package com.tomseysdavies.ember.base {
 	import com.tomseysdavies.ember.core.IEntity;
-	import com.tomseysdavies.ember.core.IEntityManger;
+	import com.tomseysdavies.ember.core.IEntityManager;
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import flash.utils.Dictionary;
@@ -18,7 +18,7 @@ package com.tomseysdavies.ember.base {
 	 * manages the relations between components and entites and keeps entity families upto date.
 	 * @author Tom Davies
 	 */
-	public class EntityManager implements IEntityManger {
+	public class EntityManager implements IEntityManager {
 		
 		private var _components:Dictionary;
 		private var _families:Dictionary;
@@ -44,10 +44,20 @@ package com.tomseysdavies.ember.base {
 			if(key == null || key == ""){
 				_currentKey ++;
 				key = "id_" + _currentKey;
-			}			
+			}else if(_components[Id]){
+				return null;
+			}
 			var entity:IEntity = new Entity(this,key);
 			_components[entity.id] = new Dictionary();
 			return entity;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function verifyExistenceOf(id:String):Boolean
+		{
+			return _components[id] != null;
 		}
 		
 		/**
@@ -74,10 +84,14 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function addComponent(entityId:String,component:Object):void{
+		public function addComponent(entityId:String,component:Object):Boolean{
 			var Component:Class = getClass(component);
+			if(!verifyExistenceOf(entityId)){
+				return false;
+			}
 			_components[entityId][Component] = component;
 			addEntityToFamilies(entityId,Component);
+			return true;
 		}
 		
 		/**

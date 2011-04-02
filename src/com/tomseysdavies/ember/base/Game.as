@@ -7,7 +7,7 @@
 
 package com.tomseysdavies.ember.base{
 	
-	import com.tomseysdavies.ember.core.IEntityManger;
+	import com.tomseysdavies.ember.core.IEntityManager;
 	import com.tomseysdavies.ember.core.IGame;
 	import com.tomseysdavies.ember.core.ISystemManager;
 	
@@ -20,7 +20,7 @@ package com.tomseysdavies.ember.base{
 	public class Game implements IGame  {
 
 		private var _contextView:DisplayObjectContainer;
-		private var _entityManager:IEntityManger;
+		private var _entityManager:IEntityManager;
 		private var _systemManager:ISystemManager;
 		private var _injector:Injector;
 		
@@ -105,7 +105,7 @@ package com.tomseysdavies.ember.base{
 		/**
 		 * The <code>IEntityManger</code> for this <code>IGame</code>
 		 */
-		protected function get entityManager():IEntityManger{
+		protected function get entityManager():IEntityManager{
 			return _entityManager || (_entityManager = new EntityManager());
 		}
 		
