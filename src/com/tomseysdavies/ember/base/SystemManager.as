@@ -53,7 +53,7 @@ package com.tomseysdavies.ember.base{
 		 */
 		public function removeSystem(System:Class):void{
 			try{
-				_systems[System].destroy();
+				_systems[System].dispose();
 				delete _systems[System];
 			}catch(e:Error){
 				trace("Warning system "+ System +" dosn't exist in system manager");
