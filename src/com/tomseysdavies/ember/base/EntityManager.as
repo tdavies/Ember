@@ -55,7 +55,7 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function verifyExistenceOf(id:String):Boolean
+		public function hasEntity(id:String):Boolean
 		{
 			return _components[id] != null;
 		}
@@ -86,7 +86,7 @@ package com.tomseysdavies.ember.base {
 		 */
 		public function addComponent(entityId:String,component:Object):Boolean{
 			var Component:Class = getClass(component);
-			if(!verifyExistenceOf(entityId)){
+			if(!hasEntity(entityId)){
 				return false;
 			}
 			_components[entityId][Component] = component;
@@ -175,7 +175,7 @@ package com.tomseysdavies.ember.base {
 				if(hasAllComponents(entityId,Components)){
 					var family:IFamily = getFamily(Components);
 					var newEntity:Entity =  new Entity(this,entityId)
-					family.entites.push(newEntity);
+					family.entities.push(newEntity);
 					family.entityAdded.dispatch(newEntity);
 				}
 			}
@@ -187,10 +187,10 @@ package com.tomseysdavies.ember.base {
 		private function removeEntityFromFamilies(entityId:String,Component:Class):void{		
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
 				var family:IFamily = getFamily(Components);
-				for(var i:int=0; i<family.entites.length; i++){
-					var entity:IEntity = family.entites[i] as IEntity;
+				for(var i:int=0; i<family.entities.length; i++){
+					var entity:IEntity = family.entities[i] as IEntity;
 					if(entity.id == entityId){
-						family.entites.splice(i,1)
+						family.entities.splice(i,1)
 						family.entityRemoved.dispatch(entity);
 					}
 				}
@@ -240,7 +240,7 @@ package com.tomseysdavies.ember.base {
 				getFamiliesWithComponent(Component).push(components);
 			}
 			var family:Family = new Family(components);
-			family.entites = getEntitiesAllComposingOf(components)
+			family.entities = getEntitiesAllComposingOf(components)
 			return family;
 		}
 

@@ -24,7 +24,7 @@ package com.tomseysdavies.ember.core{
 		 * 
 		 * @return Boolean, true if an entity with the provided id exists.
 		 */
-		function verifyExistenceOf(id:String):Boolean;
+		function hasEntity(id:String):Boolean;
 		
 		/**
 		 * unregisters an entity

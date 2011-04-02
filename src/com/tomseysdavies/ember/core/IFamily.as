@@ -10,8 +10,8 @@ package com.tomseysdavies.ember.core
 		 * vector of all entities in family
 		 * 
 		 */		
-		function get entites():Vector.<IEntity>;
-		function set entites(value:Vector.<IEntity>):void;
+		function get entities():Vector.<IEntity>;
+		function set entities(value:Vector.<IEntity>):void;
 		/**
 		 *signal that is dispached when entity is added to family. 
 		 *
