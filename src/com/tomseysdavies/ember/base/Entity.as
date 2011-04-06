@@ -9,6 +9,7 @@ package com.tomseysdavies.ember.base{
 		
 	import com.tomseysdavies.ember.core.IEntity;
 	import com.tomseysdavies.ember.core.IEntityManager;
+	import flash.utils.Dictionary;
 	
 	
 	/**
@@ -37,6 +38,13 @@ package com.tomseysdavies.ember.base{
 		 */
 		public function getComponent(Component:Class):* {
 			return _entityManger.getComponent(_id,Component);						
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function getComponents():Dictionary {
+			return _entityManger.getComponents(_id);	
 		}
 		
 		/**

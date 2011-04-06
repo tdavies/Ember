@@ -112,6 +112,17 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
+		public function getComponents(entityId:String):Dictionary{
+			var entityComponents:Dictionary = _components[entityId];
+			if(entityComponents == null){
+				throw new Error("Entity " + entityId + " not found in Entity Manager");
+			}
+			return entityComponents;			
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
 		public function removeComponent(entityId:String,Component:Class):void{
 			removeEntityFromFamilies(entityId,Component);
 			delete _components[entityId][Component];

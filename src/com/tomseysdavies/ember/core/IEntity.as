@@ -6,6 +6,7 @@
 */
 
 package com.tomseysdavies.ember.core{
+	import flash.utils.Dictionary;
 	
 	public interface IEntity extends IDisposable{
 		
@@ -24,6 +25,15 @@ package com.tomseysdavies.ember.core{
 		 * 
 		 */	
 		function getComponent(Component:Class):*;
+		
+		
+		/**
+		 * retrieves the dictionary contaning all the entities components
+		 * 
+		 * @return a dictionary of the entites components with the component Class as the key
+		 * 
+		 */	
+		function getComponents():Dictionary;
 		
 		/**
 		 * unregisterers a component from the entity
