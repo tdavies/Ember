@@ -29,7 +29,7 @@ package com.tomseysdavies.ember.base{
 		/**
 		 * @inheritDoc
 		 */
-		public function addComponent(component:Object):Boolean {
+		public function addComponent(component:Object):void {
 			return _entityManger.addComponent(_id,component);
 		}
 

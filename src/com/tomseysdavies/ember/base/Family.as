@@ -4,39 +4,41 @@ package com.tomseysdavies.ember.base
 	import com.tomseysdavies.ember.core.IEntityManager;
 	import com.tomseysdavies.ember.core.IFamily;
 	
+	import flash.utils.Dictionary;
+	
 	import org.osflash.signals.Signal;
 	
 	internal class Family implements IFamily
 	{
 		
-		private const ENTITY_ADDED:Signal = new Signal(IEntity);
-		private const ENTITY_REMOVED:Signal = new Signal(IEntity);
-		private var _entities:Vector.<IEntity>;
-		private var _loopSignal:Signal;
-		private var _currentEntity:IEntity;
-		private var _components:Array;
-		private var _canceled:Boolean
+		private const ENTITY_ADDED:Signal = new Signal(String);
+		private const ENTITY_REMOVED:Signal = new Signal(String);
+		private var _entities:Vector.<String>;
+		private var _components:Dictionary;
+		private var _index:uint;
+		private var _id:String;
+		private var _entityManager:EntityManager;
 		
-		public function Family(components:Array)
+		public function Family(entityManager:EntityManager)
 		{
-			_components = components;
-			_loopSignal = new Signal();
-			_loopSignal.valueClasses = _components;
+			_entityManager = entityManager;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
-		public function get entities():Vector.<IEntity>{
+		public function get entities():Vector.<String>{
 			return _entities;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
-		public function set entities(value:Vector.<IEntity>):void{
+		public function set entities(value:Vector.<String>):void{
 			_entities = value;
+			reset();
 		}
+		
 		
 		/**
 		 * @inheritDoc
@@ -51,14 +53,7 @@ package com.tomseysdavies.ember.base
 		public function get entityRemoved():Signal{
 			return ENTITY_REMOVED;
 		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get iterator():Signal{
-			return _loopSignal;
-		}
-		
+				
 		/**
 		 * @inheritDoc
 		 */
@@ -67,53 +62,36 @@ package com.tomseysdavies.ember.base
 			return _entities.length;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
-		public function startIterator():void{
-			_canceled = false;
-			for each(var entity:IEntity in _entities){
-				_currentEntity = entity;
-				_loopSignal.dispatch.apply(this,extractComponents(entity));
-				if(_canceled){
-					break;
-				}
-			}
+		public function reset():void{
+			_index = 0;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
-		public function stopIterator():void{
-			_canceled = true;
+		public function hasNext():Boolean{
+			return (_index < size);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
-		private function extractComponents(entity:IEntity):Array{
-			var components:Array = [];
-			for each(var Component:Class in _components){
-				components.push(entity.getComponent(Component));
-			}
-			return components;
+		public function getNext():void{
+			_id = _entities[_index];
+			_components =  _entityManager.getComponents(_id);
+			_index ++;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
-		public function get currentEntity():IEntity{
-			return _currentEntity;
+		public function get id():String{
+			return _id;
+		}
+		
+		public function get components():Dictionary{
+			return _components;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function dispose():void{
+			_entityManager = null;
 			_entities = null;
 			ENTITY_ADDED.removeAll();
 			ENTITY_REMOVED.removeAll();
-			_loopSignal.removeAll();
 		}
 	}
 }

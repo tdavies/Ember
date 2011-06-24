@@ -11,15 +11,26 @@ package com.tomseysdavies.ember.core{
 	public interface IEntityManager extends IDisposable	{
 		
 		/**
-		 * Creates a new entity with the id provided. If no id is provided a unique id will be auto generated.
+		 * Creates a new entity with the id provided and returns an entity object. If no id is provided a unique id will be auto generated.
 		 * 
 		 * If an id is provided but the entityManager already has an entity
-		 * with the same id, no entity will be created.
+		 * with the same id, no entity will be created and an error is thrown.
 		 * 
 		 * @return the new entity
 		 * 
 		 */		
-		function createEntity(Id:String = null):IEntity;	
+		function createEntity(id:String = null):IEntity;	
+		
+		/**
+		 * assigns a new entity with the id provided. If no id is provided a unique id will be auto generated.
+		 * 
+		 * If an id is provided but the entityManager already has an entity
+		 * with the same id, no entity will be created.
+		 * 
+		 * @return the entity id
+		 * 
+		 */		
+		function assignEntity(id:String = null):String;	
 		
 		/**
 		 * 
@@ -49,7 +60,7 @@ package com.tomseysdavies.ember.core{
 		 * 
 		 * @return Boolean, true if the component was added.
 		 */	
-		function addComponent(entityId:String,component:Object):Boolean;
+		function addComponent(entityId:String,component:Object):void;
 		
 		/**
 		 *retrieves a component

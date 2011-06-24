@@ -1,4 +1,4 @@
-package com.tomseysdavies.ember.base
+package com.tomseysdavies.ember.tests
 {
 	public class ComponentB
 	{

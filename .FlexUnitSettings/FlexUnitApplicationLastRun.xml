@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="" >
+<testsuite  name="Default Test Suite" project="Ember">
+<testsuite name="com.tomseysdavies.ember.tests:FamilyTest" type="testsuiteclass"/>
+<testsuite name="com.tomseysdavies.ember.tests:FamilyIterationTest" type="testsuiteclass"/>
+<testsuite name="com.tomseysdavies.ember.tests:EntityManagerTest" type="testsuiteclass"/>
+</testsuite>
+</testrun>

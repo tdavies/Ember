@@ -1,17 +1,18 @@
 package com.tomseysdavies.ember.core
 {
+	import flash.utils.Dictionary;
+	
 	import org.osflash.signals.Signal;
 
 	public interface IFamily extends IDisposable
 	{
 		
-		
 		/**
 		 * vector of all entities in family
 		 * 
 		 */		
-		function get entities():Vector.<IEntity>;
-		function set entities(value:Vector.<IEntity>):void;
+		function get entities():Vector.<String>;
+		function set entities(value:Vector.<String>):void;
 		/**
 		 *signal that is dispached when entity is added to family. 
 		 *
@@ -23,29 +24,20 @@ package com.tomseysdavies.ember.core
 		 */	
 		function get entityRemoved():Signal;
 		/**
-		 *signal that is dispached when interator increments
-		 *payload is the entity removed 
-		 */	
-		function get iterator():Signal;
-		/**
 		 *the number of entities in the family
 		 *payload is families components
 		 */	
 		function get size():uint;
-		/**
-		 *rests the cound and starts iterating though entities
-		 * 
-		 */	
-		function startIterator():void;
-		/**
-		 *stop further iteration
-		 * 
-		 */	
-		function stopIterator():void;
-		/**
-		 *get the current entity from the iterator
-		 * 
-		 */
-		function get currentEntity():IEntity;
+		
+		function reset():void;
+		
+		function hasNext():Boolean;
+		
+		function getNext():void;
+		
+		function get id():String;
+		
+		function get components():Dictionary;
+
 	}
 }

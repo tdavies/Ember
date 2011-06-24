@@ -16,7 +16,7 @@ package com.tomseysdavies.ember.core{
 		 * @param component to be added
 		 * 
 		 */		
-		function addComponent(component:Object):Boolean;
+		function addComponent(component:Object):void;
 		
 		/**
 		 * retrieves a components instance based on class name
