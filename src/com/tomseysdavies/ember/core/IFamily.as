@@ -1,5 +1,7 @@
 package com.tomseysdavies.ember.core
 {
+	import com.tomseysdavies.ember.base.Node;
+	
 	import flash.utils.Dictionary;
 	
 	import org.osflash.signals.Signal;
@@ -7,12 +9,9 @@ package com.tomseysdavies.ember.core
 	public interface IFamily extends IDisposable
 	{
 		
-		/**
-		 * vector of all entities in family
-		 * 
-		 */		
-		function get entities():Vector.<String>;
-		function set entities(value:Vector.<String>):void;
+		function add(entiyId:String,components:Dictionary):void
+			
+		function remove(entiyId:String):void
 		/**
 		 *signal that is dispached when entity is added to family. 
 		 *
@@ -27,17 +26,10 @@ package com.tomseysdavies.ember.core
 		 *the number of entities in the family
 		 *payload is families components
 		 */	
-		function get size():uint;
+		function get empty():Boolean;
 		
-		function reset():void;
-		
-		function hasNext():Boolean;
-		
-		function getNext():void;
-		
-		function get id():String;
-		
-		function get components():Dictionary;
+		function get first():Node;
+		function get last():Node;
 
 	}
 }

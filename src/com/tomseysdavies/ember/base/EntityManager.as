@@ -141,8 +141,12 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function getEntityFamily(...Components):IFamily{
-			return getFamily(Components);
+		public function getEntityFamily(Node:Class):IFamily{
+			var compoment:Array = Node.componentClasses;
+			if(!compoment){
+				throw new Error("Node has no compoments");
+			}
+			return getFamily(Node);
 		}
 			
 		/**
@@ -165,14 +169,12 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * gets all Entities with specifed Components
 		 */ 
-		private function getEntitiesAllComposingOf(Components:Array):Vector.<String>{
-			var entityList:Vector.<String> = new Vector.<String>();
+		private function poputlateFamily(family:IFamily,Components:Array):void{
 			for(var entityId:String in _components){
 				if(hasAllComponents(entityId,Components)){
-					entityList.push(entityId);
+					family.add(entityId,_components[entityId]);
 				}
 			}
-			return entityList;
 		}
 		
 		/**
@@ -192,11 +194,9 @@ package com.tomseysdavies.ember.base {
 		 */ 
 		private function addEntityToFamilies(entityId:String,Component:Class):void{
 			var families:Vector.<Array> = getFamiliesWithComponent(Component);				
-			for each(var Components:Array in getFamiliesWithComponent(Component)){
+			for each(var Components:Array in families){
 				if(hasAllComponents(entityId,Components)){
-					var family:IFamily = getFamily(Components);
-					family.entities.push(entityId);
-					family.entityAdded.dispatch(entityId);
+					_families[Components].add(entityId,_components[entityId]);
 				}
 			}
 		}		
@@ -206,14 +206,7 @@ package com.tomseysdavies.ember.base {
 		 */ 
 		private function removeEntityFromFamilies(entityId:String,Component:Class):void{		
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
-				var family:IFamily = getFamily(Components);
-				for(var i:int=0; i<family.entities.length; i++){
-					var id:String =  family.entities[i];
-					if(id == entityId){
-						family.entities.splice(i,1)
-						family.entityRemoved.dispatch(id);
-					}
-				}
+				_families[Components].remove(entityId);
 			}
 		}
 		
@@ -248,19 +241,19 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * retrieves an existing Family with set of Components or creates a new one
 		 */
-		private function getFamily(components:Array):IFamily{
-			return _families[components] ||= newFamily(components);
+		private function getFamily(Node:Class):IFamily{
+			return _families[Node.componentClasses] ||= newFamily(Node,Node.componentClasses);
 		}
 		
 		/**
 		 * creates a new family and updates references
 		 */
-		private function newFamily(components:Array):IFamily{
+		private function newFamily(Node:Class,components:Array):IFamily{
 			for each(var Component:Class in components){
 				getFamiliesWithComponent(Component).push(components);
 			}
-			var family:Family = new Family(this);
-			family.entities = getEntitiesAllComposingOf(components)
+			var family:Family = new Family(Node);
+			poputlateFamily(family,components)
 			return family;
 		}
 

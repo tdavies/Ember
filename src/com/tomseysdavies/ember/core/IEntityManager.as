@@ -97,6 +97,6 @@ package com.tomseysdavies.ember.core{
 		 * @return entities with specifed component set
 		 * 
 		 */		
-		function getEntityFamily(...Components):IFamily;
+		function getEntityFamily(Node:Class):IFamily
 	}
 }

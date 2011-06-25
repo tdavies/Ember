@@ -5,6 +5,7 @@ package com.tomseysdavies.ember.tests
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import org.flexunit.asserts.assertEquals;
+	import org.flexunit.asserts.assertFalse;
 	import org.flexunit.asserts.assertTrue;
 
 	public class FamilyTest
@@ -45,8 +46,8 @@ package com.tomseysdavies.ember.tests
 			_entityManager.createEntity(TEST_ID);			
 			_entityManager.addComponent(TEST_ID,testComponentA);
 			_entityManager.addComponent(TEST_ID,testComponentB);			
-			var family:IFamily = _entityManager.getEntityFamily(ComponentA,ComponentB);
-			assertEquals(family.size,1);
+			var family:IFamily = _entityManager.getEntityFamily(TestNode);
+			assertFalse(family.empty);
 		}
 		
 		[Test]
@@ -58,18 +59,18 @@ package com.tomseysdavies.ember.tests
 			_entityManager.createEntity(TEST_ID);			
 			_entityManager.addComponent(TEST_ID,testComponentA);
 			_entityManager.addComponent(TEST_ID,testComponentB);			
-			var family:IFamily = _entityManager.getEntityFamily(ComponentA,ComponentB);
-			assertEquals(family.size,1);
+			var family:IFamily = _entityManager.getEntityFamily(TestNode);
+			assertFalse(family.empty);
 			
 			_entityManager.createEntity(TEST_ID_2);			
 			_entityManager.addComponent(TEST_ID_2,testComponentA);
 			_entityManager.addComponent(TEST_ID_2,testComponentB);
-			assertEquals(family.size,2);
+			assertFalse(family.empty);
 			
 			_entityManager.removeComponent(TEST_ID,ComponentA);
-			assertEquals(family.size,1);
+			assertFalse(family.empty);
 			_entityManager.removeComponent(TEST_ID_2,ComponentB);
-			assertEquals(family.size,0);
+			assertTrue(family.empty);
 		}
 		
 		

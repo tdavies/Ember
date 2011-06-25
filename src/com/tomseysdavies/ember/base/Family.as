@@ -10,36 +10,20 @@ package com.tomseysdavies.ember.base
 	
 	internal class Family implements IFamily
 	{
-		
+
 		private const ENTITY_ADDED:Signal = new Signal(String);
 		private const ENTITY_REMOVED:Signal = new Signal(String);
-		private var _entities:Vector.<String>;
-		private var _components:Dictionary;
-		private var _index:uint;
-		private var _id:String;
-		private var _entityManager:EntityManager;
+		private var _last:Node;
+		private var _first:Node;
+		private var _nodeMap:Dictionary;
+		private var _Node:Class;
 		
-		public function Family(entityManager:EntityManager)
+		public function Family(Node:Class)
 		{
-			_entityManager = entityManager;
+			_Node = Node;
+			_nodeMap = new Dictionary();
 		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get entities():Vector.<String>{
-			return _entities;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function set entities(value:Vector.<String>):void{
-			_entities = value;
-			reset();
-		}
-		
-		
+				
 		/**
 		 * @inheritDoc
 		 */
@@ -57,39 +41,59 @@ package com.tomseysdavies.ember.base
 		/**
 		 * @inheritDoc
 		 */
-		public function get size():uint{
-			if(_entities == null) return 0;
-			return _entities.length;
+		public function add(entityId:String,components:Dictionary):void{
+			var node:Node = new _Node(entityId,components);
+			if(_first){
+				_last.next = node;
+			}else{
+				_first = node;
+			}			
+			node.previous = _last;
+			_last = node;
+			_nodeMap[entityId] = node;
+			entityAdded.dispatch(entityId);
 		}
 		
-		public function reset():void{
-			_index = 0;
+		public function remove(entityId:String):void{
+			var node:Node = _nodeMap[entityId];
+			if(node.previous){
+				node.previous.next = node.next;
+			}else{
+				if(node.next){
+					_first = node;
+				}else{
+					_first = null;
+				}				
+			}
+			if(node.next){
+				node.next.previous = node.previous;
+			}else{
+				if(node.previous){
+					_last = node;
+				}else{
+					_last = null;
+				}				
+			}
+			
+			node.next = node.previous = null;
+			delete _nodeMap[entityId];
 		}
 		
-		public function hasNext():Boolean{
-			return (_index < size);
+		public function get empty():Boolean{
+			return (!_first);
 		}
-		
-		public function getNext():void{
-			_id = _entities[_index];
-			_components =  _entityManager.getComponents(_id);
-			_index ++;
+				
+		public function get first():Node{
+			return _first;
 		}
-		
-		public function get id():String{
-			return _id;
-		}
-		
-		public function get components():Dictionary{
-			return _components;
+		public function get last():Node{
+			return _last;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function dispose():void{
-			_entityManager = null;
-			_entities = null;
 			ENTITY_ADDED.removeAll();
 			ENTITY_REMOVED.removeAll();
 		}

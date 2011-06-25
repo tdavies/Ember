@@ -1,8 +1,10 @@
 package com.tomseysdavies.ember.tests
 {
 	import com.tomseysdavies.ember.base.EntityManager;
+	import com.tomseysdavies.ember.base.Node;
 	import com.tomseysdavies.ember.core.IEntity;
 	import com.tomseysdavies.ember.core.IEntityManager;
+	import com.tomseysdavies.ember.core.IFamily;
 	
 	import org.flexunit.asserts.assertStrictlyEquals;
 	import org.flexunit.asserts.assertTrue;
@@ -49,11 +51,11 @@ package com.tomseysdavies.ember.tests
 			entiyTwo.addComponent(testComponentA);
 			entiyTwo.addComponent(testComponentB);
 		
-			var testIterator:TestFamilyIterator =  new TestFamilyIterator(_entityManager);
-			
-			while(testIterator.family.hasNext()){
-				testIterator.family.getNext();
-				assertStrictlyEquals(testComponentA,testIterator.compomentA);
+			var family:IFamily = _entityManager.getEntityFamily(TestNode);
+			var node:TestNode = family.first as TestNode;
+			while(node){
+				assertStrictlyEquals(testComponentA,node.componentA);
+				node = node.nextNode;
 			}
 		}
 		
