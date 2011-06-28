@@ -6,6 +6,8 @@
 */
 
 package com.tomseysdavies.ember.core{
+	import com.tomseysdavies.ember.base.Family;
+	
 	import flash.utils.Dictionary;
 	
 	public interface IEntityManager extends IDisposable	{
@@ -96,7 +98,7 @@ package com.tomseysdavies.ember.core{
 		 * @param Components set of components entities must have 
 		 * @return entities with specifed component set
 		 * 
-		 */		
+		 */
 		function getEntityFamily(Node:Class):IFamily
 	}
 }

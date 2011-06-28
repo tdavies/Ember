@@ -52,11 +52,6 @@ package com.tomseysdavies.ember.tests
 			entiyTwo.addComponent(testComponentB);
 		
 			var family:IFamily = _entityManager.getEntityFamily(TestNode);
-			var node:TestNode = family.first as TestNode;
-			while(node){
-				assertStrictlyEquals(testComponentA,node.componentA);
-				node = node.nextNode;
-			}
 		}
 		
 	}

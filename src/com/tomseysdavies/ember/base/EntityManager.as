@@ -123,11 +123,7 @@ package com.tomseysdavies.ember.base {
 		 * @inheritDoc
 		 */
 		public function getComponents(entityId:String):Dictionary{
-			var entityComponents:Dictionary = _components[entityId];
-			if(entityComponents == null){
-				throw new Error("Entity " + entityId + " not found in Entity Manager");
-			}
-			return entityComponents;			
+			return _components[entityId];
 		}
 		
 		/**
@@ -142,10 +138,6 @@ package com.tomseysdavies.ember.base {
 		 * @inheritDoc
 		 */
 		public function getEntityFamily(Node:Class):IFamily{
-			var compoment:Array = Node.componentClasses;
-			if(!compoment){
-				throw new Error("Node has no compoments");
-			}
 			return getFamily(Node);
 		}
 			

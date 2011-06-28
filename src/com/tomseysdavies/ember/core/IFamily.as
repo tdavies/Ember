@@ -9,7 +9,7 @@ package com.tomseysdavies.ember.core
 	public interface IFamily extends IDisposable
 	{
 		
-		function add(entiyId:String,components:Dictionary):void
+		
 			
 		function remove(entiyId:String):void
 		/**
@@ -28,8 +28,13 @@ package com.tomseysdavies.ember.core
 		 */	
 		function get empty():Boolean;
 		
+		function add(entiyId:String,components:Dictionary):void;
 		function get first():Node;
 		function get last():Node;
+		function start():void;
+		function next():void;
+		function get hasNext():Boolean;
+		function get currentNode():*;
 
 	}
 }

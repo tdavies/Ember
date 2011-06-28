@@ -8,12 +8,10 @@ package com.tomseysdavies.ember.base
 		public var next:Node;
 		public var previous:Node;
 		public var entityID:String;
-		public var components:Dictionary;
 		
 		public function Node(entityID:String,components:Dictionary)
 		{
 			this.entityID = entityID;
-			this.components = components;
 		}
 
 	}

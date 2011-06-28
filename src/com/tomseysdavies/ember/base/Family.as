@@ -8,7 +8,7 @@ package com.tomseysdavies.ember.base
 	
 	import org.osflash.signals.Signal;
 	
-	internal class Family implements IFamily
+	final public class Family implements IFamily
 	{
 
 		private const ENTITY_ADDED:Signal = new Signal(String);
@@ -16,7 +16,9 @@ package com.tomseysdavies.ember.base
 		private var _last:Node;
 		private var _first:Node;
 		private var _nodeMap:Dictionary;
+		private var _currentNode:Node;
 		private var _Node:Class;
+		private var _hasNext:Boolean
 		
 		public function Family(Node:Class)
 		{
@@ -45,40 +47,57 @@ package com.tomseysdavies.ember.base
 			var node:Node = new _Node(entityId,components);
 			if(_first){
 				_last.next = node;
-			}else{
+				node.previous = _last;
+			}else{				
 				_first = node;
-			}			
-			node.previous = _last;
+			}
 			_last = node;
 			_nodeMap[entityId] = node;
 			entityAdded.dispatch(entityId);
 		}
 		
 		public function remove(entityId:String):void{
+			entityRemoved.dispatch(entityId);
 			var node:Node = _nodeMap[entityId];
+			if(!node) return;
+			
 			if(node.previous){
 				node.previous.next = node.next;
 			}else{
-				if(node.next){
-					_first = node;
-				}else{
-					_first = null;
-				}				
+				_first = node.next;			
 			}
 			if(node.next){
-				node.next.previous = node.previous;
+				node.next.previous = node.previous;	
 			}else{
-				if(node.previous){
-					_last = node;
-				}else{
-					_last = null;
-				}				
+				_last = node.previous;		
 			}
-			
+			updateNode(node.next);
 			node.next = node.previous = null;
+			_nodeMap[entityId] = null;
 			delete _nodeMap[entityId];
+			
 		}
 		
+		public function start():void{
+			updateNode(_first);
+		}
+		
+		public function next():void{
+			if(_currentNode){
+				_currentNode = _currentNode.next;
+			}
+			_hasNext = (_currentNode != null);
+		}
+		
+		public function get hasNext():Boolean{
+			return _hasNext;
+		}
+		
+		private function updateNode(node:Node):void{
+			_currentNode = node;
+			_hasNext = (currentNode != null);
+		}
+				
 		public function get empty():Boolean{
 			return (!_first);
 		}
@@ -88,6 +107,10 @@ package com.tomseysdavies.ember.base
 		}
 		public function get last():Node{
 			return _last;
+		}
+		
+		public function get currentNode():*{
+			return _currentNode;
 		}
 		
 		/**
