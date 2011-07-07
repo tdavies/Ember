@@ -20,15 +20,15 @@ package com.tomseysdavies.ember.base {
 	 */
 	public class EntityManager implements IEntityManager {
 		
-		private var _components:Dictionary;
+		private var _entityMap:Dictionary;
 		private var _families:Dictionary;
 		private var _componentFamilyMap:Dictionary;
 		private var _currentKey:int;
 		
 		public function EntityManager() {
-			_components = new Dictionary();
-			_families = new Dictionary();
-			_componentFamilyMap = new Dictionary();
+			_entityMap = new Dictionary(true);
+			_families = new Dictionary(true);
+			_componentFamilyMap = new Dictionary(true);
 			_currentKey = 0;
 		}
 		
@@ -45,10 +45,10 @@ package com.tomseysdavies.ember.base {
 			if(key == null || key == ""){
 				_currentKey ++;
 				key = "id_" + _currentKey;
-			}else if(_components[id]){
+			}else if(_entityMap[id]){
 				throw new Error("Entity " + id + " already exisits in Entity Manager");
 			}
-			_components[key] = new Dictionary();
+			_entityMap[key] = new Dictionary(true);
 			return key;
 		}
 		
@@ -64,27 +64,29 @@ package com.tomseysdavies.ember.base {
 		 */
 		public function hasEntity(id:String):Boolean
 		{
-			return (_components[id]);
+			return (_entityMap[id]);
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function removeEntity(entityId:String):void {
+			
 			if(!hasEntity(entityId)){
 				throw new Error("Entity " + entityId + " not found in Entity Manager");
 			}
-			for each(var component:Object in _components[entityId]){				
+			for each(var component:Object in _entityMap[entityId]){				
 				removeEntityFromFamilies(entityId,getClass(component));
 			}
-			delete _components[entityId];
+			_entityMap[entityId] = null;
+			delete _entityMap[entityId];
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function removeAll():void {
-			for(var entityId:String in _components){
+			for(var entityId:String in _entityMap){
 				removeEntity(entityId);
 			}
 			_currentKey = 0;
@@ -99,7 +101,7 @@ package com.tomseysdavies.ember.base {
 				throw new Error("Entity " + entityId + " not found in Entity Manager");
 			}
 			var Component:Class = getClass(component);			
-			_components[entityId][Component] = component;
+			_entityMap[entityId][Component] = component;
 			addEntityToFamilies(entityId,Component);
 		}
 		
@@ -107,7 +109,7 @@ package com.tomseysdavies.ember.base {
 		 * @inheritDoc
 		 */
 		public function getComponent(entityId:String,Component:Class):*{
-			var component:* =  _components[entityId][Component];
+			var component:* =  _entityMap[entityId][Component];
 			if(!component){
 				if(!hasEntity(entityId)){
 					throw new Error("Entity " + entityId + " not found in Entity Manager");
@@ -123,7 +125,7 @@ package com.tomseysdavies.ember.base {
 		 * @inheritDoc
 		 */
 		public function getComponents(entityId:String):Dictionary{
-			return _components[entityId];
+			return _entityMap[entityId];
 		}
 		
 		/**
@@ -131,7 +133,7 @@ package com.tomseysdavies.ember.base {
 		 */
 		public function removeComponent(entityId:String,Component:Class):void{
 			removeEntityFromFamilies(entityId,Component);
-			delete _components[entityId][Component];
+			delete _entityMap[entityId][Component];
 		}
 		
 		/**
@@ -145,7 +147,7 @@ package com.tomseysdavies.ember.base {
 		 * @inheritDoc
 		 */
 		public function dispose():void {
-			_components = null;	
+			_entityMap = null;	
 			for each(var family:IFamily in _families){
 				family.dispose();
 			}
@@ -162,9 +164,9 @@ package com.tomseysdavies.ember.base {
 		 * gets all Entities with specifed Components
 		 */ 
 		private function poputlateFamily(family:IFamily,Components:Array):void{
-			for(var entityId:String in _components){
+			for(var entityId:String in _entityMap){
 				if(hasAllComponents(entityId,Components)){
-					family.add(entityId,_components[entityId]);
+					family.add(entityId,_entityMap[entityId]);
 				}
 			}
 		}
@@ -174,7 +176,7 @@ package com.tomseysdavies.ember.base {
 		 */ 
 		private function hasAllComponents(entityId:String,Components:Array):Boolean{
 			for each(var Component:Class in Components){
-				if(!_components[entityId][Component]){
+				if(!_entityMap[entityId][Component]){
 					return false;
 				}	
 			}
@@ -188,7 +190,7 @@ package com.tomseysdavies.ember.base {
 			var families:Vector.<Array> = getFamiliesWithComponent(Component);				
 			for each(var Components:Array in families){
 				if(hasAllComponents(entityId,Components)){
-					_families[Components].add(entityId,_components[entityId]);
+					_families[Components].add(entityId,_entityMap[entityId]);
 				}
 			}
 		}		
@@ -203,7 +205,7 @@ package com.tomseysdavies.ember.base {
 		}
 		
 		private function removeFamily(Components:Array):void{
-			_families[Components].destroy();
+			_families[Components].dispose();
 			delete _families[Components];
 			
 			for each(var familyRefList:Vector.<Array> in _componentFamilyMap){

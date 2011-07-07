@@ -13,6 +13,10 @@ package com.tomseysdavies.ember.base
 		{
 			this.entityID = entityID;
 		}
+		
+		public function dispose():void{
+			
+		}
 
 	}
 }

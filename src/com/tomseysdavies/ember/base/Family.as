@@ -23,7 +23,7 @@ package com.tomseysdavies.ember.base
 		public function Family(Node:Class)
 		{
 			_Node = Node;
-			_nodeMap = new Dictionary();
+			_nodeMap = new Dictionary(true);
 		}
 				
 		/**
@@ -73,6 +73,8 @@ package com.tomseysdavies.ember.base
 			}
 			updateNode(node.next);
 			node.next = node.previous = null;
+			node.entityID = null;
+			node.dispose();
 			_nodeMap[entityId] = null;
 			delete _nodeMap[entityId];
 			
