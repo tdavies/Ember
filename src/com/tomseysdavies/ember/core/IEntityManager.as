@@ -64,6 +64,16 @@ package com.tomseysdavies.ember.core{
 		function addComponent(entityId:String,component:Object):void;
 		
 		/**
+		 * Indicates if an entity had an instance of a particular component
+		 * 
+		 * @param entityId The entity to be checked
+		 * @param Component The component
+		 * 
+		 * @return Boolean, true if the component is registered with the entity
+		 */
+		function hasComponent(entityId:String,Component:Class):Boolean;
+		
+		/**
 		 *retrieves a component
 		 *  
 		 * @param entity the component is registered with

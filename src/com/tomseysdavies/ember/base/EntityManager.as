@@ -91,7 +91,6 @@ package com.tomseysdavies.ember.base {
 			}
 			_currentKey = 0;
 		}
-				
 		
 		/**
 		 * @inheritDoc
@@ -103,6 +102,13 @@ package com.tomseysdavies.ember.base {
 			var Component:Class = getClass(component);			
 			_entityMap[entityId][Component] = component;
 			addEntityToFamilies(entityId,Component);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function hasComponent(entityId:String,Component:Class):Boolean{
+			return _entityMap[entityId][Component] ? true : false;
 		}
 		
 		/**
