@@ -18,7 +18,7 @@ package com.tomseysdavies.ember.base{
 	 */
 	internal class Entity implements IEntity{
 
-		private static var _entityManger:IEntityManager;
+		private var _entityManger:IEntityManager;
 		private var _id:String;
 				
 		public function Entity(entityManger:IEntityManager,id:String){
