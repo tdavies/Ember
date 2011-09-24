@@ -190,7 +190,7 @@ package com.tomseysdavies.ember.base {
 			var families:Vector.<Array> = getFamiliesWithComponent(Component);				
 			for each(var Components:Array in families){
 				if(hasAllComponents(entityId,Components)){
-					_families[Components].add(entityId,_entityMap[entityId]);
+					IFamily(_families[Components]).add(entityId,_entityMap[entityId]);
 				}
 			}
 		}		
@@ -200,12 +200,12 @@ package com.tomseysdavies.ember.base {
 		 */ 
 		private function removeEntityFromFamilies(entityId:String,Component:Class):void{		
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
-				_families[Components].remove(entityId);
+				IFamily(_families[Components]).remove(entityId);
 			}
 		}
 		
 		private function removeFamily(Components:Array):void{
-			_families[Components].dispose();
+			IFamily(_families[Components]).dispose();
 			delete _families[Components];
 			
 			for each(var familyRefList:Vector.<Array> in _componentFamilyMap){
@@ -247,7 +247,7 @@ package com.tomseysdavies.ember.base {
 				getFamiliesWithComponent(Component).push(components);
 			}
 			var family:Family = new Family(Node);
-			poputlateFamily(family,components)
+			poputlateFamily(family,components);
 			return family;
 		}
 

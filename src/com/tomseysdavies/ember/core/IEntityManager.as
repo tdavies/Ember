@@ -6,7 +6,6 @@
 */
 
 package com.tomseysdavies.ember.core{
-	import com.tomseysdavies.ember.base.Family;
 	
 	import flash.utils.Dictionary;
 	

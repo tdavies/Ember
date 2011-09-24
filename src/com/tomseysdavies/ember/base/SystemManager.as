@@ -42,7 +42,7 @@ package com.tomseysdavies.ember.base{
 			if(_systems[System] != null){
 				trace("Warning system "+System+" already exists in system manager");
 			}
-			var system:ISystem = _injector.instantiate(System)
+			var system:ISystem = _injector.instantiate(System);
 			_systems[System] = system;
 			system.onRegister();
 			return system;
@@ -53,7 +53,7 @@ package com.tomseysdavies.ember.base{
 		 */
 		public function removeSystem(System:Class):void{
 			try{
-				_systems[System].dispose();
+				ISystem( _systems[System] ).dispose();
 				delete _systems[System];
 			}catch(e:Error){
 				trace("Warning system "+ System +" dosn't exist in system manager");
