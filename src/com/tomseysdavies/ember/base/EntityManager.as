@@ -169,7 +169,7 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * gets all Entities with specifed Components
 		 */ 
-		private function poputlateFamily(family:IFamily,Components:Array):void{
+		private function populateFamily(family:IFamily,Components:Array):void{
 			for(var entityId:String in _entityMap){
 				if(hasAllComponents(entityId,Components)){
 					family.add(entityId,_entityMap[entityId]);
@@ -253,7 +253,7 @@ package com.tomseysdavies.ember.base {
 				getFamiliesWithComponent(Component).push(components);
 			}
 			var family:Family = new Family(Node);
-			poputlateFamily(family,components);
+			populateFamily(family,components);
 			return family;
 		}
 
