@@ -17,44 +17,47 @@ package com.tomseysdavies.ember.core{
 		 * If an id is provided but the entityManager already has an entity
 		 * with the same id, no entity will be created and an error is thrown.
 		 * 
-		 * @return the new entity
+		 * @param id The id for the new entity. If no id is provided, a random unique id will be used.
 		 * 
+		 * @return the new entity
 		 */		
 		function createEntity(id:String = null):IEntity;	
 		
 		/**
-		 * assigns a new entity with the id provided. If no id is provided a unique id will be auto generated.
+		 * Assigns a new entity with the id provided. If no id is provided a unique id will be auto generated.
 		 * 
 		 * If an id is provided but the entityManager already has an entity
 		 * with the same id, no entity will be created.
 		 * 
-		 * @return the entity id
+		 * @param id The id for the new entity. If no id is provided, a random unique id will be used.
 		 * 
+		 * @return the entity id
 		 */		
 		function assignEntity(id:String = null):String;	
 		
 		/**
+		 * Determines if the entity manager has an entity with the given id.
+		 * 
+		 * @param id The id for the new entity.
 		 * 
 		 * @return Boolean, true if an entity with the provided id exists.
 		 */
 		function hasEntity(id:String):Boolean;
 		
 		/**
-		 * unregisters an entity
+		 * Unregisters an entity
 		 * 
-		 * @param entity
-		 * 
+		 * @param entityId The id of the entity to be removed.
 		 */	
 		function removeEntity(entityId:String):void;
 		
 		/**
-		 * unregisters all entities and resets the entity manager 
-		 * 
+		 * Unregisters all entities and resets the entity manager 
 		 */	
 		function removeAll():void;
 		
 		/**
-		 * registers a component with an entity
+		 * Registers a component with an entity
 		 * 
 		 * @param entity the component is to be registered with
 		 * @param component to be registered
