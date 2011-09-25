@@ -62,7 +62,7 @@ package com.tomseysdavies.ember.base{
 		 * <p>Override this in your Game if you want to customise</p>
 		 */
 		protected function mapInjectors():void{
-			injector.mapValue(EntityManager,entityManager);
+			injector.mapValue(IEntityManager,entityManager);
 			injector.mapValue(DisplayObjectContainer,contextView);
 		} 
 		
