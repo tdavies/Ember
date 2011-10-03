@@ -1,7 +1,5 @@
 package com.tomseysdavies.ember.base
 {
-	import com.tomseysdavies.ember.core.IEntity;
-	import com.tomseysdavies.ember.core.IEntityManager;
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import flash.utils.Dictionary;
@@ -19,7 +17,7 @@ package com.tomseysdavies.ember.base
 		private var _nodeMap:Dictionary;
 		private var _currentNode:Node;
 		private var _Node:Class;
-		private var _hasNext:Boolean
+		private var _hasNext:Boolean;
 		private var _size:int;
 		
 		public function Family(Node:Class)

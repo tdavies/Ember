@@ -90,7 +90,6 @@ package com.tomseysdavies.ember.base {
 			}
 			_currentKey = 0;
 		}
-				
 		
 		/**
 		 * @inheritDoc
@@ -102,6 +101,13 @@ package com.tomseysdavies.ember.base {
 			var Component:Class = getClass(component);			
 			_entityMap[entityId][Component] = component;
 			addEntityToFamilies(entityId,Component);
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function hasComponent(entityId:String,Component:Class):Boolean{
+			return _entityMap[entityId][Component] ? true : false;
 		}
 		
 		/**
@@ -162,7 +168,7 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * gets all Entities with specifed Components
 		 */ 
-		private function poputlateFamily(family:IFamily,Components:Array):void{
+		private function populateFamily(family:IFamily,Components:Array):void{
 			for(var entityId:String in _entityMap){
 				if(hasAllComponents(entityId,Components)){
 					family.add(entityId,_entityMap[entityId]);
@@ -189,7 +195,7 @@ package com.tomseysdavies.ember.base {
 			var families:Vector.<Array> = getFamiliesWithComponent(Component);				
 			for each(var Components:Array in families){
 				if(hasAllComponents(entityId,Components)){
-					_families[Components].add(entityId,_entityMap[entityId]);
+					IFamily(_families[Components]).add(entityId,_entityMap[entityId]);
 				}
 			}
 		}		
@@ -199,12 +205,12 @@ package com.tomseysdavies.ember.base {
 		 */ 
 		private function removeEntityFromFamilies(entityId:String,Component:Class):void{	
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
-				_families[Components].remove(entityId);
+				IFamily(_families[Components]).remove(entityId);
 			}
 		}
 		
 		private function removeFamily(Components:Array):void{
-			_families[Components].dispose();
+			IFamily(_families[Components]).dispose();
 			delete _families[Components];
 			
 			for each(var familyRefList:Vector.<Array> in _componentFamilyMap){
@@ -246,7 +252,7 @@ package com.tomseysdavies.ember.base {
 				getFamiliesWithComponent(Component).push(components);
 			}
 			var family:Family = new Family(Node);
-			poputlateFamily(family,components)
+			populateFamily(family,components);
 			return family;
 		}
 

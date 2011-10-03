@@ -11,7 +11,6 @@ package com.tomseysdavies.ember.base{
 	import com.tomseysdavies.ember.core.IGame;
 	import com.tomseysdavies.ember.core.ISystemManager;
 	
-	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	
@@ -63,7 +62,7 @@ package com.tomseysdavies.ember.base{
 		 * <p>Override this in your Game if you want to customise</p>
 		 */
 		protected function mapInjectors():void{
-			injector.mapValue(EntityManager,entityManager);
+			injector.mapValue(IEntityManager,entityManager);
 			injector.mapValue(DisplayObjectContainer,contextView);
 		} 
 		
@@ -113,7 +112,7 @@ package com.tomseysdavies.ember.base{
 		 * The <code>ISystemManager</code> for this <code>IGame</code>
 		 */
 		protected function get systemManager():ISystemManager{
-			return _systemManager || (_systemManager = new SystemManager(injector))
+			return _systemManager || (_systemManager = new SystemManager(injector));
 		}
 		
 		//---------------------------------------------------------------------

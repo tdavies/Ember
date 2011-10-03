@@ -9,10 +9,8 @@ package com.tomseysdavies.ember.core
 {
 	public interface IDisposable
 	{
-		
 		/**
-		 * invoked when instance is to be destroyed
-		 * 
+		 * Invoked when instance is to be destroyed
 		 */	
 		function dispose():void;
 	}

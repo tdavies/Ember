@@ -18,7 +18,7 @@ package com.tomseysdavies.ember.base{
 	 */
 	internal class Entity implements IEntity{
 
-		private static var _entityManger:IEntityManager;
+		private var _entityManger:IEntityManager;
 		private var _id:String;
 				
 		public function Entity(entityManger:IEntityManager,id:String){
@@ -30,7 +30,7 @@ package com.tomseysdavies.ember.base{
 		 * @inheritDoc
 		 */
 		public function addComponent(component:Object):void {
-			return _entityManger.addComponent(_id,component);
+			_entityManger.addComponent(_id,component);
 		}
 
 		/**
