@@ -35,6 +35,8 @@ package com.tomseysdavies.ember.core
 		function next():void;
 		function get hasNext():Boolean;
 		function get currentNode():*;
+		
+		function get size():int;
 
 	}
 }

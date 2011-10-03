@@ -6,19 +6,21 @@ package com.tomseysdavies.ember.base
 	
 	import flash.utils.Dictionary;
 	
+	import org.hamcrest.object.nullValue;
 	import org.osflash.signals.Signal;
 	
 	final public class Family implements IFamily
 	{
 
-		private const ENTITY_ADDED:Signal = new Signal(String);
-		private const ENTITY_REMOVED:Signal = new Signal(String);
+		private const ENTITY_ADDED:Signal = new Signal(Object);
+		private const ENTITY_REMOVED:Signal = new Signal(Object);
 		private var _last:Node;
 		private var _first:Node;
 		private var _nodeMap:Dictionary;
 		private var _currentNode:Node;
 		private var _Node:Class;
 		private var _hasNext:Boolean
+		private var _size:int;
 		
 		public function Family(Node:Class)
 		{
@@ -51,16 +53,17 @@ package com.tomseysdavies.ember.base
 			}else{				
 				_first = node;
 			}
+			_size ++;
 			_last = node;
 			_nodeMap[entityId] = node;
-			entityAdded.dispatch(entityId);
+			entityAdded.dispatch(node);
 		}
 		
+		
+		
 		public function remove(entityId:String):void{
-			entityRemoved.dispatch(entityId);
 			var node:Node = _nodeMap[entityId];
-			if(!node) return;
-			
+			if(!node) return;			
 			if(node.previous){
 				node.previous.next = node.next;
 			}else{
@@ -76,8 +79,9 @@ package com.tomseysdavies.ember.base
 			node.entityID = null;
 			node.dispose();
 			_nodeMap[entityId] = null;
-			delete _nodeMap[entityId];
-			
+			_size --;	
+			entityRemoved.dispatch(node);
+			delete _nodeMap[entityId];			
 		}
 		
 		public function start():void{
@@ -115,12 +119,21 @@ package com.tomseysdavies.ember.base
 			return _currentNode;
 		}
 		
+		public function get size():int{
+			return _size
+		}
+		
 		/**
 		 * @inheritDoc
 		 */
 		public function dispose():void{
+			_size = 0;
 			ENTITY_ADDED.removeAll();
 			ENTITY_REMOVED.removeAll();
+			_last = null;
+			_first  = null;
+			_nodeMap = null;
+			_currentNode  = null;
 		}
 	}
 }

@@ -70,12 +70,11 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function removeEntity(entityId:String):void {
-			
+		public function removeEntity(entityId:String):void{
 			if(!hasEntity(entityId)){
 				throw new Error("Entity " + entityId + " not found in Entity Manager");
 			}
-			for each(var component:Object in _entityMap[entityId]){				
+			for each(var component:Object in _entityMap[entityId]){		
 				removeEntityFromFamilies(entityId,getClass(component));
 			}
 			_entityMap[entityId] = null;
@@ -198,7 +197,7 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * updates families when a component is removed from an entity
 		 */ 
-		private function removeEntityFromFamilies(entityId:String,Component:Class):void{		
+		private function removeEntityFromFamilies(entityId:String,Component:Class):void{	
 			for each(var Components:Array in getFamiliesWithComponent(Component)){
 				_families[Components].remove(entityId);
 			}
@@ -222,7 +221,7 @@ package com.tomseysdavies.ember.base {
 		 * gets class name from instance
 		 */
 		private function getClass(obj:Object):Class{
-			return Class(getDefinitionByName(getQualifiedClassName(obj)));
+			return obj.constructor;
 		}
 			
 		/**

@@ -15,7 +15,6 @@ package com.tomseysdavies.ember.base
 		}
 		
 		public function dispose():void{
-			
 		}
 
 	}
