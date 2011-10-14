@@ -4,7 +4,6 @@ package com.tomseysdavies.ember.base
 	
 	import flash.utils.Dictionary;
 	
-	import org.hamcrest.object.nullValue;
 	import org.osflash.signals.Signal;
 	
 	final public class Family implements IFamily

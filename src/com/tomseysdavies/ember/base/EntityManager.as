@@ -11,8 +11,6 @@ package com.tomseysdavies.ember.base {
 	import com.tomseysdavies.ember.core.IFamily;
 	
 	import flash.utils.Dictionary;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 * manages the relations between components and entites and keeps entity families upto date.
@@ -227,7 +225,7 @@ package com.tomseysdavies.ember.base {
 		 * gets class name from instance
 		 */
 		private function getClass(obj:Object):Class{
-			return obj.constructor;
+			return obj.constructor as Class;
 		}
 			
 		/**
